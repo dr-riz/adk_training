@@ -10,7 +10,8 @@ through sequential refinement (write, edit, format).
 from __future__ import annotations
 
 from google.adk.agents import Agent, ParallelAgent, SequentialAgent
-from google.adk.tools import google_search
+# from google.adk.tools import google_search
+from google.adk.models.lite_llm import LiteLlm
 
 # ============================================================================
 # PARALLEL BRANCH 1: News Research Pipeline
@@ -18,28 +19,27 @@ from google.adk.tools import google_search
 
 news_fetcher = Agent(
     name="news_fetcher",
-    model="gemini-2.0-flash",
-    description="Fetches current news articles using Google Search",
+    model=LiteLlm(model="ollama_chat/phi3:latest"),
+    description="Fetches current news articles from the training data",
     instruction=(
         "You are a news researcher. Based on the user's topic, search for "
         "current news articles and recent developments.\n"
         "\n"
-        "Use the google_search tool to find 3-4 current news articles.\n"
-        "Focus on recent, credible news sources from the past 6 months.\n"
+        "Find 3-4 current news articles.\n"
+        "Focus on recent, credible news sources.\n"
         "\n"
-        "Output a bulleted list with:\n"
         "• Source + Headline + Brief summary\n"
         "• Include publication dates when available\n"
         "\n"
         "Search query should be: '[topic] news recent developments site:reputable-news-sites'"
     ),
-    tools=[google_search],
+    # tools=[google_search],
     output_key="raw_news"
 )
 
 news_summarizer = Agent(
     name="news_summarizer",
-    model="gemini-2.0-flash",
+    model=LiteLlm(model="ollama_chat/phi3:latest"),
     description="Summarizes key news points",
     instruction=(
         "Summarize the news articles into 2-3 key takeaways.\n"
@@ -69,13 +69,14 @@ news_pipeline = SequentialAgent(
 
 social_monitor = Agent(
     name="social_monitor",
-    model="gemini-2.0-flash",
-    description="Monitors social media trends using Google Search",
+    model=LiteLlm(model="ollama_chat/phi3:latest"),
+    # model="gemini-flash-latest"
+    description="Monitors social media trends in the training data",
     instruction=(
         "You are a social media analyst. Based on the user's topic, search for "
         "trending discussions, popular hashtags, and public sentiment.\n"
         "\n"
-        "Use the google_search tool to find:\n"
+        "Find:\n"
         "• Trending hashtags and topics on social platforms\n"
         "• Recent social media discussions and viral content\n"
         "• Public opinion and sentiment analysis\n"
@@ -87,13 +88,13 @@ social_monitor = Agent(
         "• Popular discussion themes\n"
         "• General sentiment (positive/negative/mixed) with evidence"
     ),
-    tools=[google_search],
+    # tools=[google_search],
     output_key="raw_social"
 )
 
 sentiment_analyzer = Agent(
     name="sentiment_analyzer",
-    model="gemini-2.0-flash",
+    model=LiteLlm(model="ollama_chat/phi3:latest"),
     description="Analyzes social sentiment",
     instruction=(
         "Analyze the social media data and extract key insights.\n"
@@ -123,13 +124,13 @@ social_pipeline = SequentialAgent(
 
 expert_finder = Agent(
     name="expert_finder",
-    model="gemini-2.0-flash",
-    description="Finds expert opinions using Google Search",
+    model=LiteLlm(model="ollama_chat/phi3:latest"),
+    description="Finds expert opinions in the training data",
     instruction=(
         "You are an expert opinion researcher. Based on the user's topic, search for "
         "what industry experts, academics, or thought leaders are saying.\n"
         "\n"
-        "Use the google_search tool to find:\n"
+        "Output a bulleted list of 5-7 key facts or insights about the topic. \n"
         "• Industry experts and their credentials\n"
         "• Academic researchers and their affiliations\n"
         "• Thought leaders and their recent statements\n"
@@ -141,13 +142,13 @@ expert_finder = Agent(
         "• Their key statements or positions\n"
         "• Source (where they said it) with links when available"
     ),
-    tools=[google_search],
+    # tools=[google_search],
     output_key="raw_experts"
 )
 
 quote_extractor = Agent(
     name="quote_extractor",
-    model="gemini-2.0-flash",
+    model=LiteLlm(model="ollama_chat/phi3:latest"),
     description="Extracts quotable insights",
     instruction=(
         "Extract the most impactful quotes and insights from expert opinions.\n"
@@ -190,7 +191,7 @@ parallel_research = ParallelAgent(
 
 article_writer = Agent(
     name="article_writer",
-    model="gemini-2.0-flash",
+    model=LiteLlm(model="ollama_chat/phi3:latest"),
     description="Writes article draft from all research",
     instruction=(
         "You are a professional writer. Write an engaging article using ALL "
@@ -218,7 +219,7 @@ article_writer = Agent(
 
 article_editor = Agent(
     name="article_editor",
-    model="gemini-2.0-flash",
+    model=LiteLlm(model="ollama_chat/phi3:latest"),
     description="Edits article for clarity and impact",
     instruction=(
         "You are an editor. Review and improve the article below.\n"
@@ -238,7 +239,7 @@ article_editor = Agent(
 
 article_formatter = Agent(
     name="article_formatter",
-    model="gemini-2.0-flash",
+    model=LiteLlm(model="ollama_chat/phi3:latest"),
     description="Formats article for publication",
     instruction=(
         "Format the article for publication with proper markdown.\n"
