@@ -9,6 +9,7 @@ agents that work together to research, write, edit, and format blog posts.
 from __future__ import annotations
 
 from google.adk.agents import Agent, SequentialAgent
+from google.adk.models.lite_llm import LiteLlm
 
 # ============================================================================
 # INDIVIDUAL AGENTS
@@ -18,7 +19,7 @@ from google.adk.agents import Agent, SequentialAgent
 # Gathers key facts about the topic
 research_agent = Agent(
     name="researcher",
-    model="gemini-2.0-flash",
+    model=LiteLlm(model="ollama_chat/phi3:latest"),
     description="Researches a topic and gathers key information",
     instruction=(
         "You are a research assistant. Your task is to gather key facts and information "
@@ -41,7 +42,7 @@ research_agent = Agent(
 # Writes blog post draft from research
 writer_agent = Agent(
     name="writer",
-    model="gemini-2.0-flash",
+    model=LiteLlm(model="ollama_chat/phi3:latest"),
     description="Writes a blog post draft based on research findings",
     instruction=(
         "You are a creative blog writer. Write an engaging blog post based on "
@@ -65,7 +66,7 @@ writer_agent = Agent(
 # Reviews the draft and suggests improvements
 editor_agent = Agent(
     name="editor",
-    model="gemini-2.0-flash",
+    model=LiteLlm(model="ollama_chat/phi3:latest"),
     description="Reviews blog post draft and provides editorial feedback",
     instruction=(
         "You are an experienced editor. Review the blog post draft below and provide "
@@ -92,7 +93,7 @@ editor_agent = Agent(
 # Applies edits and formats as markdown
 formatter_agent = Agent(
     name="formatter",
-    model="gemini-2.0-flash",
+    model=LiteLlm(model="ollama_chat/phi3:latest"),
     description="Applies editorial feedback and formats the final blog post",
     instruction=(
         "You are a formatter. Create the final version of the blog post by applying "

@@ -10,6 +10,7 @@ Tests cover:
 """
 
 import pytest
+from google.adk.models.lite_llm import LiteLlm
 
 from blog_pipeline.agent import (
     root_agent,
@@ -57,28 +58,32 @@ class TestIndividualAgents:
     def test_research_agent_config(self):
         """Test research agent configuration"""
         assert research_agent.name == "researcher"
-        assert research_agent.model == "gemini-2.0-flash"
+        assert isinstance(research_agent.model, LiteLlm)
+        assert research_agent.model.model == "ollama_chat/phi3:latest"
         assert research_agent.output_key == "research_findings"
         assert "research" in research_agent.instruction.lower()
 
     def test_writer_agent_config(self):
         """Test writer agent configuration"""
         assert writer_agent.name == "writer"
-        assert writer_agent.model == "gemini-2.0-flash"
+        assert isinstance(writer_agent.model, LiteLlm)
+        assert writer_agent.model.model == "ollama_chat/phi3:latest"
         assert writer_agent.output_key == "draft_post"
         assert "{research_findings}" in writer_agent.instruction
 
     def test_editor_agent_config(self):
         """Test editor agent configuration"""
         assert editor_agent.name == "editor"
-        assert editor_agent.model == "gemini-2.0-flash"
+        assert isinstance(editor_agent.model, LiteLlm)
+        assert editor_agent.model.model == "ollama_chat/phi3:latest"
         assert editor_agent.output_key == "editorial_feedback"
         assert "{draft_post}" in editor_agent.instruction
 
     def test_formatter_agent_config(self):
         """Test formatter agent configuration"""
         assert formatter_agent.name == "formatter"
-        assert formatter_agent.model == "gemini-2.0-flash"
+        assert isinstance(formatter_agent.model, LiteLlm)
+        assert formatter_agent.model.model == "ollama_chat/phi3:latest"
         assert formatter_agent.output_key == "final_post"
         assert "{draft_post}" in formatter_agent.instruction
         assert "{editorial_feedback}" in formatter_agent.instruction
