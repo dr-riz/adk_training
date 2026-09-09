@@ -374,3 +374,4 @@ key.json
 .playwright-mcp/
 tutorial_implementation/.vscode/settings.json
 tutorial_implementation/tutorial06/content_publisher/.adk/session.db
+tutorial_implementation/tutorial07/essay_refiner/.adk/session.db

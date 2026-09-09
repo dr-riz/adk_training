@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from google.adk.agents import Agent, LoopAgent, SequentialAgent
 from google.adk.tools.tool_context import ToolContext
+from google.adk.models.lite_llm import LiteLlm
 
 # ===== Exit Tool for Loop Termination =====
 def exit_loop(tool_context: ToolContext):
@@ -19,7 +20,7 @@ def exit_loop(tool_context: ToolContext):
 # =====================================================
 initial_writer = Agent(
     name="InitialWriter",
-    model="gemini-2.0-flash",
+    model=LiteLlm(model="ollama_chat/phi3:latest"),
     description="Writes the first draft of an essay",
     instruction=(
         "You are a creative writer. Write a first draft essay on the topic "
@@ -44,7 +45,7 @@ initial_writer = Agent(
 # ===== Loop Agent 1: Critic =====
 critic = Agent(
     name="Critic",
-    model="gemini-2.0-flash",
+    model=LiteLlm(model="ollama_chat/phi3:latest"),
     description="Evaluates essay quality and provides feedback",
     instruction=(
         "You are an experienced essay critic and teacher. Review the essay below "
@@ -75,7 +76,7 @@ critic = Agent(
 # ===== Loop Agent 2: Refiner =====
 refiner = Agent(
     name="Refiner",
-    model="gemini-2.0-flash",
+    model=LiteLlm(model="ollama_chat/phi3:latest"),
     tools=[exit_loop],  # Provide exit tool!
     description="Improves essay based on critique or signals completion",
     instruction=(
