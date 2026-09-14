@@ -11,6 +11,7 @@ This agent uses:
 from google.adk.agents import Agent
 from google.adk.tools.tool_context import ToolContext
 from typing import Dict, Any
+from google.adk.models.lite_llm import LiteLlm
 
 # ============================================================================
 # TOOLS: State Management & Memory Operations
@@ -200,7 +201,9 @@ def search_past_lessons(
 
 root_agent = Agent(
     name="personal_tutor",
-    model="gemini-2.0-flash",
+    # model="gemini-3.6-flash",
+    model="gpt-4-0613",
+    # model=LiteLlm(model="ollama_chat/phi3:latest"),
 
     description="""
     Personal learning tutor that tracks your progress, preferences, and learning
