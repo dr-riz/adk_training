@@ -76,7 +76,7 @@ critic = Agent(
 # ===== Loop Agent 2: Refiner =====
 refiner = Agent(
     name="Refiner",
-    model=LiteLlm(model="ollama_chat/phi3:latest"),
+    model=LiteLlm(model="ollama_chat/deepseek-r1:8b"),
     tools=[exit_loop],  # Provide exit tool!
     description="Improves essay based on critique or signals completion",
     instruction=(
