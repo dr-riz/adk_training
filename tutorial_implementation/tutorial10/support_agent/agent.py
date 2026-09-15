@@ -158,7 +158,8 @@ def check_ticket_status(
 
 root_agent = Agent(
     name="support_agent",
-    model="gemini-2.0-flash-exp",
+    # model="gemini-2.0-flash-exp",
+    model="gpt-4-0613",
     description="Customer support agent that can search knowledge base, create tickets, and check ticket status",
     instruction="""You are a helpful customer support agent. Help customers by:
 
