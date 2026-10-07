@@ -44,7 +44,8 @@ def create_document_organizer_agent(base_directory: str) -> Agent:
 
     # Create organizer agent
     agent = Agent(
-        model='gemini-2.0-flash-exp',
+        # model='gemini-2.0-flash-exp',
+        model="gpt-4-0613",
         name='document_organizer',
         description='Intelligent document organization agent with filesystem access',
         instruction="""

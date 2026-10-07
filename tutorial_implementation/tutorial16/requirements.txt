@@ -1,6 +1,7 @@
 # Tutorial 16: MCP Integration Requirements
 
 # Core ADK with MCP support (1.16.0+ recommended for SSE/HTTP)
+google-adk[mcp,extensions]>=2.9.0
 google-genai>=1.16.0
 
 # Testing

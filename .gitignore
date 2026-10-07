@@ -375,3 +375,4 @@ key.json
 *settings.json
 *.session.db
 *.adk/
+tutorial_implementation/tutorial16/mcp_agent/wipro.py

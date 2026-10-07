@@ -16,6 +16,7 @@ Key Features:
 import os
 from typing import Dict, Any, Optional
 from google.adk.agents import Agent
+from google.adk.models.lite_llm import LiteLlm
 from google.adk.tools.mcp_tool import McpToolset, StdioConnectionParams
 from mcp.client.stdio import StdioServerParameters
 from google.genai import types
@@ -182,7 +183,10 @@ def create_mcp_filesystem_agent(
 
     # Create agent with MCP tools and HITL callback
     agent = Agent(
-        model='gemini-2.0-flash-exp',
+        # model='gemini-2.0-flash-exp',
+        # model=LiteLlm(model="openai/gpt-5.4-nano"),
+        # model="openai/gpt-5.6-sol",
+        # model="openai/gpt-5.4-nano",
         name='mcp_file_assistant',
         description='AI assistant with filesystem access via MCP and Human-in-the-Loop approval',
         instruction=f"""
@@ -263,7 +267,7 @@ REMEMBER: You're an intelligent assistant, not a literal command parser. Underst
         """.strip(),
         tools=[mcp_tools],
         generate_content_config=types.GenerateContentConfig(
-            temperature=0.2,  # Deterministic for file operations
+            # Omit temperature: this model rejects 0.2 while reasoning is active.
             max_output_tokens=2048
         ),
         # Enable Human-in-the-Loop callback if requested
