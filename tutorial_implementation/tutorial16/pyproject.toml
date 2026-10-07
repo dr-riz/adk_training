@@ -9,6 +9,7 @@ description = "Tutorial 16: MCP Integration with Google ADK"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "google-adk[mcp,extensions]>=2.9.0",
     "google-genai>=1.16.0",
 ]
 

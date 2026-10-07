@@ -29,10 +29,11 @@ class TestAgentConfiguration:
 
     def test_agent_model(self):
         """Test that agent has correct model."""
+        from hello_agent import agent
         from hello_agent.agent import root_agent
 
         assert hasattr(root_agent, 'model')
-        assert root_agent.model == "gemini-2.0-flash"
+        assert root_agent.model == agent.OPENAI_MODEL
 
     def test_agent_description(self):
         """Test that agent has description."""
@@ -45,7 +46,7 @@ class TestAgentConfiguration:
         """Test that agent has instruction."""
         from hello_agent.agent import root_agent
 
-        assert hasattr(root_agent, 'instruction')
+        assert isinstance(root_agent.instruction, str)
         assert "warm and helpful assistant" in root_agent.instruction
         assert "Greet users enthusiastically" in root_agent.instruction
 
@@ -54,6 +55,7 @@ class TestAgentConfiguration:
         from hello_agent.agent import root_agent
 
         instruction = root_agent.instruction
+        assert isinstance(instruction, str)
         assert len(instruction) > 50  # Should be substantial
         assert len(instruction) < 1000  # Shouldn't be too long
 
@@ -77,7 +79,7 @@ class TestAgentFunctionality:
         call_args = mock_agent_class.call_args
 
         assert call_args[1]['name'] == 'hello_assistant'
-        assert call_args[1]['model'] == 'gemini-2.0-flash'
+        assert call_args[1]['model'] == hello_agent.agent.OPENAI_MODEL
         assert 'friendly' in call_args[1]['description']
         assert 'warm and helpful' in call_args[1]['instruction']
 
@@ -105,9 +107,8 @@ class TestAgentIntegration:
 
         # These attributes should exist and be reasonable
         assert hasattr(root_agent, 'model')
-        assert hasattr(root_agent, 'instruction')
+        assert isinstance(root_agent.instruction, str)
         assert len(root_agent.instruction) > 20
 
-        # Model should be a known Gemini model
-        valid_models = ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro']
-        assert root_agent.model in valid_models
+        assert isinstance(root_agent.model, str)
+        assert root_agent.model

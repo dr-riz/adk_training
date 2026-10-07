@@ -9,4 +9,5 @@ description = "Tutorial 01: Hello World Agent"
 requires-python = ">=3.9"
 dependencies = [
     "google-adk>=1.15.1",
+    "python-dotenv>=1.0.0",
 ]

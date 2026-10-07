@@ -2,6 +2,7 @@
 
 # Core ADK framework
 google-adk>=1.15.1
+python-dotenv>=1.0.0
 
 # Development and testing
 pytest>=7.0.0
