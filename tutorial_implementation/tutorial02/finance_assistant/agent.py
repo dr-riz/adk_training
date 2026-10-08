@@ -11,8 +11,16 @@ The agent showcases automatic tool selection, parallel execution, and
 structured returns with human-readable reports.
 """
 
+import os
+from pathlib import Path
 from typing import Dict, Any
+
+from dotenv import load_dotenv
 from google.adk.agents import Agent
+
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gemini-2.0-flash")
 
 
 def calculate_compound_interest(
@@ -298,7 +306,7 @@ def calculate_monthly_savings(
 # Create the finance assistant agent
 root_agent = Agent(
     name="finance_assistant",
-    model="gemini-2.0-flash",
+    model=OPENAI_MODEL,
     description="""
     A financial calculation assistant that can help with:
     - Compound interest calculations for investments

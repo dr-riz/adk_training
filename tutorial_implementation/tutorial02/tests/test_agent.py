@@ -21,7 +21,8 @@ class TestAgentConfiguration:
         """Test that the agent is created successfully."""
         assert root_agent is not None
         assert root_agent.name == "finance_assistant"
-        assert root_agent.model == "gemini-2.0-flash"
+        from finance_assistant import agent
+        assert root_agent.model == agent.OPENAI_MODEL
 
     def test_agent_description(self):
         """Test that agent has proper description."""

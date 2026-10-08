@@ -58,7 +58,7 @@ demo: check-env
 # Run tests
 test: check-env
 	@echo "🧪 Running tests..."
-	pytest tests/ -v --tb=short
+	python -m pytest tests/ -v --tb=short
 
 # Clean up
 clean:
@@ -70,7 +70,8 @@ clean:
 
 # Check environment (internal use)
 check-env:
-	@if [ -z "$$GOOGLE_API_KEY" ] && [ -z "$$GOOGLE_APPLICATION_CREDENTIALS" ]; then \
+	@set -a; [ -f .env ] && . ./.env; set +a; \
+	if [ -z "$$GOOGLE_API_KEY" ] && [ -z "$$GOOGLE_APPLICATION_CREDENTIALS" ]; then \
 		echo "❌ Error: Authentication not configured"; \
 		echo ""; \
 		echo "Choose one of the following authentication methods:"; \

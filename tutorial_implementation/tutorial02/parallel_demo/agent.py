@@ -17,14 +17,15 @@ from google.adk.agents import Agent
 from finance_assistant.agent import (
     calculate_compound_interest,
     calculate_loan_payment,
-    calculate_monthly_savings
+    calculate_monthly_savings,
+    OPENAI_MODEL,
 )
 
 
 # Create the parallel execution demo agent
 root_agent = Agent(
     name="parallel_finance_assistant",
-    model="gemini-2.0-flash",  # Best model for parallel execution
+    model=OPENAI_MODEL,  # Set via OPENAI_MODEL in .env
     description="""
     A high-performance financial calculation assistant optimized for parallel execution.
 
