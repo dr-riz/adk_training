@@ -7,6 +7,7 @@ from unittest.mock import patch, MagicMock
 from google.adk.agents import Agent
 from google.adk.tools.openapi_tool import OpenAPIToolset
 
+from chuck_norris_agent import agent
 from chuck_norris_agent.agent import root_agent, CHUCK_NORRIS_SPEC, chuck_norris_toolset
 
 
@@ -27,7 +28,7 @@ class TestAgentConfiguration:
 
     def test_agent_model(self):
         """Test agent uses correct model"""
-        assert root_agent.model == "gemini-2.0-flash"
+        assert root_agent.model == agent.OPENAI_MODEL
 
     def test_agent_description(self):
         """Test agent has description"""

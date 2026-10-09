@@ -7,8 +7,16 @@ generate tools from an API specification without writing tool functions.
 
 from __future__ import annotations
 
+import os
+from pathlib import Path
+
+from dotenv import load_dotenv
 from google.adk.agents import Agent
 from google.adk.tools.openapi_tool import OpenAPIToolset
+
+load_dotenv(Path(__file__).resolve().parent / ".env")
+
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gemini-2.0-flash")
 
 # ============================================================================
 # OPENAPI SPECIFICATION
@@ -153,7 +161,7 @@ chuck_norris_toolset = OpenAPIToolset(spec_dict=CHUCK_NORRIS_SPEC)
 
 root_agent = Agent(
     name="chuck_norris_agent",
-    model="gemini-2.0-flash",
+    model=OPENAI_MODEL,
 
     description="""
     Chuck Norris fact assistant that can retrieve jokes/facts from the
